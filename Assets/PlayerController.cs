@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private int point = 0; 
     private bool isGrounded = false;
 
+    private bool isSpeedUp = false; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("point"))
         {
             point++;
+            isGrounded = true;
             Debug.Log("Point: " + point);
         }
     }
@@ -55,5 +58,20 @@ public class PlayerController : MonoBehaviour
             Debug.Log("jump");
             isGrounded = false;
         }
+    }
+
+    void OnChangeSpeed(InputValue value)
+    {
+        if (isSpeedUp == false)
+        {
+            speed = 15; 
+            isSpeedUp = true;
+        }
+        else
+        {
+            speed = 5;
+            isSpeedUp = false;
+        }
+        Debug.Log(speed);
     }
 }
