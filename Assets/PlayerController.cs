@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int speed = 0;
     private int point = 0; 
     private bool isGrounded = false;
-
     private bool isSpeedUp = false; 
+    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // rb.velocity = movementVector;
-        rb.velocity = new Vector2(speed * movementVector.x, rb.velocity.y);
+        rb.velocity = new Vector2(speed * movementVector.x, speed * movementVector.y);
     }
 
     void OnMove(InputValue value)
@@ -73,5 +73,14 @@ public class PlayerController : MonoBehaviour
             isSpeedUp = false;
         }
         Debug.Log(speed);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("point")){
+            other.gameObject.SetActive(false);
+            score++;
+            Debug.Log("My score is: " + score);
+        }
     }
 }
